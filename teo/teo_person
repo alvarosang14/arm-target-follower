@@ -1,0 +1,2666 @@
+<sdf version='1.7'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='TEO_fixed'>
+      <frame name='TEO::__model__' attached_to='TEO::RootWaist_links'>
+        <pose relative_to='__model__'>0 0 0.845 0 -0 0</pose>
+      </frame>
+      <link name='TEO::RootWaist_links'>
+        <pose relative_to='TEO::__model__'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.010985 -0.000323 0.033148 0 -0 0</pose>
+          <mass>2.5</mass>
+          <inertia>
+            <ixx>0.0385308</ixx>
+            <ixy>-1.35e-07</ixy>
+            <ixz>0.000238121</ixz>
+            <iyy>0.0173543</iyy>
+            <iyz>-4.8e-10</iyz>
+            <izz>0.0532316</izz>
+          </inertia>
+        </inertial>
+        <visual name='RootWaist_links_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/RootWaist_links.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0 0 0 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='RootWaist_links_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/RootWaist_links.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <frame name='TEO::TEO_trunk::__model__' attached_to='TEO::TEO_trunk::AxialTrunk_link'>
+        <pose relative_to='TEO::__model__'>0 0 0.1932 0 -0 0</pose>
+      </frame>
+      <link name='TEO::TEO_trunk::AxialTrunk_link'>
+        <pose relative_to='TEO::TEO_trunk::__model__'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.002235 -0.000979 -0.018814 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00197759</ixx>
+            <ixy>2.06e-06</ixy>
+            <ixz>2.97e-05</ixz>
+            <iyy>0.000899729</iyy>
+            <iyz>-3.07e-06</iyz>
+            <izz>0.00147175</izz>
+          </inertia>
+        </inertial>
+        <visual name='AxialTrunk_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/AxialWaist.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='AxialTrunk_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/AxialWaist.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_trunk::AxialTrunk' type='revolute'>
+        <parent>TEO::RootWaist_links</parent>
+        <child>TEO::TEO_trunk::AxialTrunk_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.03</lower>
+            <upper>0.81</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_trunk::FrontalTrunk_link'>
+        <pose relative_to='TEO::TEO_trunk::__model__'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0.032985 -0.007876 0.220667 0 -0 0</pose>
+          <mass>14.2355</mass>
+          <inertia>
+            <ixx>0.335665</ixx>
+            <ixy>0.000162127</ixy>
+            <ixz>0.0118582</ixz>
+            <iyy>0.126532</iyy>
+            <iyz>0.000914091</iyz>
+            <izz>0.263359</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalTrunk_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/RootWaist.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.905882 0 0.172549 1</ambient>
+            <diffuse>0.905882 0 0.172549 1</diffuse>
+            <specular>0.452941 0 0.086275 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalTrunk_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/RootWaist.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <sensor name='waist_imu' type='imu'>
+          <pose>0 0 0.05 3.14159 3e-06 3.14159</pose>
+          <always_on>1</always_on>
+          <update_rate>200</update_rate>
+          <plugin name='waist_imu_plugin' filename='libgazebo_yarp_imu.so'>
+            <yarpConfigurationString>(yarpDeviceName imu) (disableImplicitNetworkWrapper)</yarpConfigurationString>
+          </plugin>
+          <imu/>
+        </sensor>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_trunk::FrontalTrunk' type='revolute'>
+        <parent>TEO::TEO_trunk::AxialTrunk_link</parent>
+        <child>TEO::TEO_trunk::FrontalTrunk_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.18</lower>
+            <upper>1.58</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <plugin name='controlboard_trunk' filename='libgazebo_yarp_controlboard.so'>
+        <yarpConfigurationFile>model://teo/conf/gazebo_teo_trunk.ini</yarpConfigurationFile>
+      </plugin>
+      <frame name='TEO::TEO_head::__model__' attached_to='TEO::TEO_head::AxialNeck_link'>
+        <pose relative_to='TEO::__model__'>0 0 0.6282 0 -0 0</pose>
+      </frame>
+      <link name='TEO::TEO_head::AxialNeck_link'>
+        <pose relative_to='TEO::TEO_head::__model__'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0.000302 0.000193 -0.0452 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.000939063</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.000939063</iyy>
+            <iyz>0</iyz>
+            <izz>0.000528125</izz>
+          </inertia>
+        </inertial>
+        <visual name='AxialNeck_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/AxialNeck.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='AxialNeck_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/AxialNeck.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_head::AxialNeck' type='revolute'>
+        <parent>TEO::TEO_trunk::FrontalTrunk_link</parent>
+        <child>TEO::TEO_head::AxialNeck_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.22</lower>
+            <upper>1.22</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_head::FrontalNeck_link'>
+        <pose relative_to='TEO::TEO_head::__model__'>0 0 0.0325 0 -0 0</pose>
+        <inertial>
+          <pose>-0.002729 -8.6e-05 0.067027 0 -0 0</pose>
+          <mass>2</mass>
+          <inertia>
+            <ixx>0.00759932</ixx>
+            <ixy>5.83e-09</ixy>
+            <ixz>6.58e-05</ixz>
+            <iyy>0.00832527</iyy>
+            <iyz>-7.43e-09</iyz>
+            <izz>0.0114035</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalNeck_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalNeck.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalNeck_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalNeck.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <sensor name='xtion_rgbd' type='depth'>
+          <pose>0 0 0 0 -0 0</pose>
+          <camera>
+            <horizontal_fov>1.01</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+            </image>
+            <clip>
+              <near>0.8</near>
+              <far>3.5</far>
+            </clip>
+            <lens>
+              <intrinsics>
+                <fx>525</fx>
+                <fy>525</fy>
+                <cx>319.5</cx>
+                <cy>239.5</cy>
+                <s>0</s>
+              </intrinsics>
+              <type>stereographic</type>
+              <scale_to_hfov>1</scale_to_hfov>
+            </lens>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>1</visualize>
+          <plugin name='xtion_rgbd_plugin' filename='libgazebo_yarp_depthCamera.so'>
+            <yarpConfigurationString>(yarpDeviceName depthcamera) (disableImplicitNetworkWrapper)</yarpConfigurationString>
+          </plugin>
+        </sensor>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_head::FrontalNeck' type='revolute'>
+        <parent>TEO::TEO_head::AxialNeck_link</parent>
+        <child>TEO::TEO_head::FrontalNeck_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.51</lower>
+            <upper>0.15</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <plugin name='controlboard_head' filename='libgazebo_yarp_controlboard.so'>
+        <yarpConfigurationFile>model://teo/conf/gazebo_teo_head.ini</yarpConfigurationFile>
+      </plugin>
+      <frame name='TEO::TEO_rightArm::__model__' attached_to='TEO::TEO_rightArm::FrontalRightShoulder_link'>
+        <pose relative_to='TEO::__model__'>0 -0.26292 0.4982 0 -0 0</pose>
+      </frame>
+      <link name='TEO::TEO_rightArm::FrontalRightShoulder_link'>
+        <pose relative_to='TEO::TEO_rightArm::__model__'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.002267 -0.056164 0.008456 0 -0 0</pose>
+          <mass>2</mass>
+          <inertia>
+            <ixx>0.00422679</ixx>
+            <ixy>8.44e-05</ixy>
+            <ixz>-1.17e-05</ixz>
+            <iyy>0.00212728</iyy>
+            <iyz>-0.000280493</iyz>
+            <izz>0.00409316</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalRightShoulder_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalRightShoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalRightShoulder_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalRightShoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightArm::FrontalRightShoulder' type='revolute'>
+        <parent>TEO::TEO_trunk::FrontalTrunk_link</parent>
+        <child>TEO::TEO_rightArm::FrontalRightShoulder_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.71</lower>
+            <upper>1.85</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightArm::SagittalRightShoulder_link'>
+        <pose relative_to='TEO::TEO_rightArm::__model__'>0 -0.084 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.008472 -0.004826 -0.027321 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00161093</ixx>
+            <ixy>-6.9e-05</ixy>
+            <ixz>-0.000214886</ixz>
+            <iyy>0.00218778</iyy>
+            <iyz>-6.9e-05</iyz>
+            <izz>0.00117353</izz>
+          </inertia>
+        </inertial>
+        <visual name='SagittalRightShoulder_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/SagittalRightShoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='SagittalRightShoulder_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/SagittalRightShoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightArm::SagittalRightShoulder' type='revolute'>
+        <parent>TEO::TEO_rightArm::FrontalRightShoulder_link</parent>
+        <child>TEO::TEO_rightArm::SagittalRightShoulder_link</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1.32</lower>
+            <upper>0.39</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightArm::AxialRightShoulder_link'>
+        <pose relative_to='TEO::TEO_rightArm::__model__'>0 -0.084 -0.329 0 -0 0</pose>
+        <inertial>
+          <pose>0.000347 0.000245 0.107382 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <visual name='AxialRightShoulder_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/AxialRightShoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='AxialRightShoulder_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/AxialRightShoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightArm::AxialRightShoulder' type='revolute'>
+        <parent>TEO::TEO_rightArm::SagittalRightShoulder_link</parent>
+        <child>TEO::TEO_rightArm::AxialRightShoulder_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.4</lower>
+            <upper>0.99</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightArm::FrontalRightElbow_link'>
+        <pose relative_to='TEO::TEO_rightArm::__model__'>0 -0.084 -0.329 0 -0 0</pose>
+        <inertial>
+          <pose>0.000237 -4e-05 -0.04998 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00259003</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00262307</iyy>
+            <iyz>0</iyz>
+            <izz>0.000446024</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalRightElbow_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalRightElbow.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalRightElbow_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalRightElbow.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightArm::FrontalRightElbow' type='revolute'>
+        <parent>TEO::TEO_rightArm::AxialRightShoulder_link</parent>
+        <child>TEO::TEO_rightArm::FrontalRightElbow_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.74</lower>
+            <upper>1.72</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightArm::AxialRightWrist_link'>
+        <pose relative_to='TEO::TEO_rightArm::__model__'>0 -0.084 -0.531 0 -0 0</pose>
+        <inertial>
+          <pose>-0.001151 0.000603 0.02464 0 -0 0</pose>
+          <mass>0.63149</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <visual name='AxialRightWrist_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/AxialRightWrist.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='AxialRightWrist_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/AxialRightWrist.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightArm::AxialRightWrist' type='revolute'>
+        <parent>TEO::TEO_rightArm::FrontalRightElbow_link</parent>
+        <child>TEO::TEO_rightArm::AxialRightWrist_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.4</lower>
+            <upper>1.74</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightArm::FrontalRightWrist_link'>
+        <pose relative_to='TEO::TEO_rightArm::__model__'>0 -0.084 -0.531 0 -0 0</pose>
+        <inertial>
+          <pose>-0.002314 7e-05 -0.108635 0 -0 0</pose>
+          <mass>0.72</mass>
+          <inertia>
+            <ixx>0.00532996</ixx>
+            <ixy>1.02e-07</ixy>
+            <ixz>0.000114751</ixz>
+            <iyy>0.00534528</iyy>
+            <iyz>-8.07e-06</iyz>
+            <izz>0.000883179</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalRightWrist_visual'>
+          <pose>0 0 0 -1.5708 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://teo/meshes/visual/FrontalRightWrist.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalRightWrist_collision'>
+          <pose>0 0 0 -1.5708 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://teo/meshes/collision/FrontalRightWrist.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightArm::FrontalRightWrist' type='revolute'>
+        <parent>TEO::TEO_rightArm::AxialRightWrist_link</parent>
+        <child>TEO::TEO_rightArm::FrontalRightWrist_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-2.01</lower>
+            <upper>0.78</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightArm::RightSensorPlate_link'>
+        <pose relative_to='TEO::TEO_rightArm::__model__'>0 -0.084 -0.63401 0 -0 0</pose>
+        <inertial>
+          <mass>0.001</mass>
+          <pose>0 0 0 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightArm::RightSensorPlate' type='fixed'>
+        <parent>TEO::TEO_rightArm::FrontalRightWrist_link</parent>
+        <child>TEO::TEO_rightArm::RightSensorPlate_link</child>
+        <pose>0 0 0 3.14159 -0 3.14159</pose>
+        <sensor name='rightArm_ft' type='force_torque'>
+          <always_on>1</always_on>
+          <update_rate>200</update_rate>
+          <force_torque>
+            <frame>sensor</frame>
+            <measure_direction>child_to_parent</measure_direction>
+          </force_torque>
+          <plugin name='rightArm_ft_plugin' filename='libgazebo_yarp_forcetorque.so'>
+            <yarpConfigurationString>(yarpDeviceName forceTorque_rightArm) (disableImplicitNetworkWrapper)</yarpConfigurationString>
+          </plugin>
+        </sensor>
+      </joint>
+      <plugin name='controlboard_rightArm' filename='libgazebo_yarp_controlboard.so'>
+        <yarpConfigurationFile>model://teo/conf/gazebo_teo_rightArm.ini</yarpConfigurationFile>
+      </plugin>
+      <frame name='TEO::TEO_leftArm::__model__' attached_to='TEO::TEO_leftArm::FrontalLeftShoulder_link'>
+        <pose relative_to='TEO::__model__'>0 0.26292 0.4982 0 -0 0</pose>
+      </frame>
+      <link name='TEO::TEO_leftArm::FrontalLeftShoulder_link'>
+        <pose relative_to='TEO::TEO_leftArm::__model__'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.002272 0.056186 0.008165 0 -0 0</pose>
+          <mass>2</mass>
+          <inertia>
+            <ixx>0.00422679</ixx>
+            <ixy>-8.55e-05</ixy>
+            <ixz>-1.17e-05</ixz>
+            <iyy>0.00212734</iyy>
+            <iyz>0.000280493</iyz>
+            <izz>0.00409322</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalLeftShoulder_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalLeftShoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalLeftShoulder_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalLeftShoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftArm::FrontalLeftShoulder' type='revolute'>
+        <parent>TEO::TEO_trunk::FrontalTrunk_link</parent>
+        <child>TEO::TEO_leftArm::FrontalLeftShoulder_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.69</lower>
+            <upper>1.98</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftArm::SagittalLeftShoulder_link'>
+        <pose relative_to='TEO::TEO_leftArm::__model__'>0 0.084 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.008047 0.004937 -0.027619 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00161092</ixx>
+            <ixy>6.9e-05</ixy>
+            <ixz>-0.000214885</ixz>
+            <iyy>0.00218777</iyy>
+            <iyz>-0.000163004</iyz>
+            <izz>0.00117353</izz>
+          </inertia>
+        </inertial>
+        <visual name='SagittalLeftShoulder_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/SagittalLeftShoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='SagittalLeftShoulder_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/SagittalLeftShoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftArm::SagittalLeftShoulder' type='revolute'>
+        <parent>TEO::TEO_leftArm::FrontalLeftShoulder_link</parent>
+        <child>TEO::TEO_leftArm::SagittalLeftShoulder_link</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.42</lower>
+            <upper>1.34</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftArm::AxialLeftShoulder_link'>
+        <pose relative_to='TEO::TEO_leftArm::__model__'>0 0.084 -0.329 0 -0 0</pose>
+        <inertial>
+          <pose>-0.000172 0.000249 0.100649 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <visual name='AxialLeftShoulder_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/AxialLeftShoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='AxialLeftShoulder_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/AxialLeftShoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftArm::AxialLeftShoulder' type='revolute'>
+        <parent>TEO::TEO_leftArm::SagittalLeftShoulder_link</parent>
+        <child>TEO::TEO_leftArm::AxialLeftShoulder_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-0.9</lower>
+            <upper>1.47</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftArm::FrontalLeftElbow_link'>
+        <pose relative_to='TEO::TEO_leftArm::__model__'>0 0.084 -0.329 0 -0 0</pose>
+        <inertial>
+          <pose>0.000287 -0.000116 -0.053185 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00259003</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00262307</iyy>
+            <iyz>0</iyz>
+            <izz>0.000446024</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalLeftElbow_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalLeftElbow.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalLeftElbow_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalLeftElbow.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftArm::FrontalLeftElbow' type='revolute'>
+        <parent>TEO::TEO_leftArm::AxialLeftShoulder_link</parent>
+        <child>TEO::TEO_leftArm::FrontalLeftElbow_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.76</lower>
+            <upper>1.69</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftArm::AxialLeftWrist_link'>
+        <pose relative_to='TEO::TEO_leftArm::__model__'>0 0.084 -0.531 0 -0 0</pose>
+        <inertial>
+          <pose>-0.001151 0.000603 0.02464 0 -0 0</pose>
+          <mass>0.63149</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <visual name='AxialLeftWrist_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/AxialLeftWrist.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='AxialLeftWrist_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/AxialLeftWrist.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftArm::AxialLeftWrist' type='revolute'>
+        <parent>TEO::TEO_leftArm::FrontalLeftElbow_link</parent>
+        <child>TEO::TEO_leftArm::AxialLeftWrist_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.77</lower>
+            <upper>1.33</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftArm::FrontalLeftWrist_link'>
+        <pose relative_to='TEO::TEO_leftArm::__model__'>0 0.084 -0.531 0 -0 0</pose>
+        <inertial>
+          <pose>-0.002314 7e-05 -0.108635 0 -0 0</pose>
+          <mass>0.72</mass>
+          <inertia>
+            <ixx>0.00533065</ixx>
+            <ixy>1.28e-07</ixy>
+            <ixz>0.000100487</ixz>
+            <iyy>0.00534528</iyy>
+            <iyz>-8.07e-06</iyz>
+            <izz>0.000882489</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalLeftWrist_visual'>
+          <pose>0 0 0 -1.5708 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://teo/meshes/visual/FrontalLeftWrist.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalLeftWrist_collision'>
+          <pose>0 0 0 -1.5708 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>model://teo/meshes/collision/FrontalLeftWrist.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftArm::FrontalLeftWrist' type='revolute'>
+        <parent>TEO::TEO_leftArm::AxialLeftWrist_link</parent>
+        <child>TEO::TEO_leftArm::FrontalLeftWrist_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.98</lower>
+            <upper>1.07</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftArm::LeftSensorPlate_link'>
+        <pose relative_to='TEO::TEO_leftArm::__model__'>0 0.084 -0.63401 0 -0 0</pose>
+        <inertial>
+          <mass>0.001</mass>
+          <pose>0 0 0 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftArm::LeftSensorPlate' type='fixed'>
+        <parent>TEO::TEO_leftArm::FrontalLeftWrist_link</parent>
+        <child>TEO::TEO_leftArm::LeftSensorPlate_link</child>
+        <pose>0 0 0 3.14159 -0 3.14159</pose>
+        <sensor name='leftArm_ft' type='force_torque'>
+          <always_on>1</always_on>
+          <update_rate>200</update_rate>
+          <force_torque>
+            <frame>sensor</frame>
+            <measure_direction>child_to_parent</measure_direction>
+          </force_torque>
+          <plugin name='leftArm_ft_plugin' filename='libgazebo_yarp_forcetorque.so'>
+            <yarpConfigurationString>(yarpDeviceName forceTorque_leftArm) (disableImplicitNetworkWrapper)</yarpConfigurationString>
+          </plugin>
+        </sensor>
+      </joint>
+      <plugin name='controlboard_leftArm' filename='libgazebo_yarp_controlboard.so'>
+        <yarpConfigurationFile>model://teo/conf/gazebo_teo_leftArm.ini</yarpConfigurationFile>
+      </plugin>
+      <frame name='TEO::TEO_rightLeg::__model__' attached_to='TEO::TEO_rightLeg::AxialRightHip_link'>
+        <pose relative_to='TEO::__model__'>0 -0.146 0 0 -0 0</pose>
+      </frame>
+      <link name='TEO::TEO_rightLeg::AxialRightHip_link'>
+        <pose relative_to='TEO::TEO_rightLeg::__model__'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>8.9e-05 -0.000389 -0.065985 0 -0 0</pose>
+          <mass>0.84945</mass>
+          <inertia>
+            <ixx>0.0015642</ixx>
+            <ixy>0</ixy>
+            <ixz>2.5e-06</ixz>
+            <iyy>0.00264509</iyy>
+            <iyz>0</iyz>
+            <izz>0.00170635</izz>
+          </inertia>
+        </inertial>
+        <visual name='AxialRightHip_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/AxialRightHip.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='AxialRightHip_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/AxialRightHip.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightLeg::AxialRightHip' type='revolute'>
+        <parent>TEO::RootWaist_links</parent>
+        <child>TEO::TEO_rightLeg::AxialRightHip_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-0.57</lower>
+            <upper>0.49</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightLeg::SagittalRightHip_link'>
+        <pose relative_to='TEO::TEO_rightLeg::__model__'>0 0 -0.092 0 -0 0</pose>
+        <inertial>
+          <pose>-0.000636 0.001058 0.000349 0 -0 0</pose>
+          <mass>1.45459</mass>
+          <inertia>
+            <ixx>0.00154582</ixx>
+            <ixy>-2.97e-06</ixy>
+            <ixz>-4.07e-09</ixz>
+            <iyy>0.00119159</iyy>
+            <iyz>9.16e-09</iyz>
+            <izz>0.00227048</izz>
+          </inertia>
+        </inertial>
+        <visual name='SagittalRightHip_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/SagittalRightHip.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='SagittalRightHip_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/SagittalRightHip.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightLeg::SagittalRightHip' type='revolute'>
+        <parent>TEO::TEO_rightLeg::AxialRightHip_link</parent>
+        <child>TEO::TEO_rightLeg::SagittalRightHip_link</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.25</lower>
+            <upper>0.22</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightLeg::FrontalRightHip_link'>
+        <pose relative_to='TEO::TEO_rightLeg::__model__'>0 0 -0.092 0 -0 0</pose>
+        <inertial>
+          <pose>-0.010862 -6e-06 -0.161205 0 -0 0</pose>
+          <mass>1.89152</mass>
+          <inertia>
+            <ixx>0.0150777</ixx>
+            <ixy>0</ixy>
+            <ixz>-0.000442074</ixz>
+            <iyy>0.015112</iyy>
+            <iyz>0</iyz>
+            <izz>0.00747346</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalRightHip_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalRightHip.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalRightHip_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalRightHip.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightLeg::FrontalRightHip' type='revolute'>
+        <parent>TEO::TEO_rightLeg::SagittalRightHip_link</parent>
+        <child>TEO::TEO_rightLeg::FrontalRightHip_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.55</lower>
+            <upper>0.74</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightLeg::FrontalRightKnee_link'>
+        <pose relative_to='TEO::TEO_rightLeg::__model__'>0 0 -0.422 0 -0 0</pose>
+        <inertial>
+          <pose>-0.006614 -0.000411 -0.146413 0 -0 0</pose>
+          <mass>1.94824</mass>
+          <inertia>
+            <ixx>0.0218617</ixx>
+            <ixy>0</ixy>
+            <ixz>3.16e-06</ixz>
+            <iyy>0.0214111</iyy>
+            <iyz>0</iyz>
+            <izz>0.00384364</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalRightKnee_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalRightKnee.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalRightKnee_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalRightKnee.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightLeg::FrontalRightKnee' type='revolute'>
+        <parent>TEO::TEO_rightLeg::FrontalRightHip_link</parent>
+        <child>TEO::TEO_rightLeg::FrontalRightKnee_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.07</lower>
+            <upper>1.44</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightLeg::FrontalRightAnkle_link'>
+        <pose relative_to='TEO::TEO_rightLeg::__model__'>0 0.0175 -0.722 0 -0 0</pose>
+        <inertial>
+          <pose>0.002577 -0.013536 0.000182 0 -0 0</pose>
+          <mass>1.50359</mass>
+          <inertia>
+            <ixx>0.00139549</ixx>
+            <ixy>6.85e-06</ixy>
+            <ixz>1e-11</ixz>
+            <iyy>0.00158936</iyy>
+            <iyz>0</iyz>
+            <izz>0.00241866</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalRightAnkle_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalRightAnkle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalRightAnkle_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalRightAnkle.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightLeg::FrontalRightAnkle' type='revolute'>
+        <parent>TEO::TEO_rightLeg::FrontalRightKnee_link</parent>
+        <child>TEO::TEO_rightLeg::FrontalRightAnkle_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.4</lower>
+            <upper>0.44</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightLeg::SagittalRightAnkle_link'>
+        <pose relative_to='TEO::TEO_rightLeg::__model__'>0 0.0175 -0.722 0 -0 0</pose>
+        <inertial>
+          <pose>0.01003 0.000936 -0.0669 0 -0 0</pose>
+          <mass>2.1334</mass>
+          <inertia>
+            <ixx>0.00774203</ixx>
+            <ixy>0.000455866</ixy>
+            <ixz>-0.00185166</ixz>
+            <iyy>0.0147813</iyy>
+            <iyz>-0.000147513</iyz>
+            <izz>0.0133617</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalRightAnkle_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/SagittalRightAnkle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='SagittalRightAnkle_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/SagittalRightAnkle.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightLeg::SagittalRightAnkle' type='revolute'>
+        <parent>TEO::TEO_rightLeg::FrontalRightAnkle_link</parent>
+        <child>TEO::TEO_rightLeg::SagittalRightAnkle_link</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.35</lower>
+            <upper>0.74</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_rightLeg::SagittalRightFoot_link'>
+        <pose relative_to='TEO::TEO_rightLeg::__model__'>0 0.0175 -0.722 0 -0 0</pose>
+        <inertial>
+          <pose>0.01003 0.000936 -0.0669 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00774203</ixx>
+            <ixy>0.000455866</ixy>
+            <ixz>-0.00185166</ixz>
+            <iyy>0.0147813</iyy>
+            <iyz>-0.000147513</iyz>
+            <izz>0.0133617</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalRightFoot_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/SagittalRightFoot.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='SagittalRightFoot_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/SagittalRightFoot.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>4</max_contacts>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1.8e+07</kp>
+                <kd>100</kd>
+                <max_vel>100</max_vel>
+                <min_depth>0.0001</min_depth>
+              </ode>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_rightLeg::SagittalRightFoot' type='fixed'>
+        <parent>TEO::TEO_rightLeg::SagittalRightAnkle_link</parent>
+        <child>TEO::TEO_rightLeg::SagittalRightFoot_link</child>
+        <pose>0 0 -0.113 -3.14159 -0 0</pose>
+        <sensor name='rightLeg_ft' type='force_torque'>
+          <always_on>1</always_on>
+          <update_rate>200</update_rate>
+          <force_torque>
+            <frame>sensor</frame>
+            <measure_direction>child_to_parent</measure_direction>
+          </force_torque>
+          <plugin name='rightLeg_ft_plugin' filename='libgazebo_yarp_forcetorque.so'>
+            <yarpConfigurationString>(yarpDeviceName forceTorque_rightLeg) (disableImplicitNetworkWrapper)</yarpConfigurationString>
+          </plugin>
+        </sensor>
+      </joint>
+      <plugin name='controlboard_rightLeg' filename='libgazebo_yarp_controlboard.so'>
+        <yarpConfigurationFile>model://teo/conf/gazebo_teo_rightLeg.ini</yarpConfigurationFile>
+      </plugin>
+      <frame name='TEO::TEO_leftLeg::__model__' attached_to='TEO::TEO_leftLeg::AxialLeftHip_link'>
+        <pose relative_to='TEO::__model__'>0 0.146 0 0 -0 0</pose>
+      </frame>
+      <link name='TEO::TEO_leftLeg::AxialLeftHip_link'>
+        <pose relative_to='TEO::TEO_leftLeg::__model__'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>8.9e-05 -0.000389 -0.065985 0 -0 0</pose>
+          <mass>0.84945</mass>
+          <inertia>
+            <ixx>0.0015642</ixx>
+            <ixy>2.5e-06</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00264509</iyy>
+            <iyz>0</iyz>
+            <izz>0.00170635</izz>
+          </inertia>
+        </inertial>
+        <visual name='AxialLeftHip_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/AxialLeftHip.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='AxialLeftHip_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/AxialLeftHip.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftLeg::AxialLeftHip' type='revolute'>
+        <parent>TEO::RootWaist_links</parent>
+        <child>TEO::TEO_leftLeg::AxialLeftHip_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-0.49</lower>
+            <upper>0.57</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftLeg::SagittalLeftHip_link'>
+        <pose relative_to='TEO::TEO_leftLeg::__model__'>0 0 -0.092 0 -0 0</pose>
+        <inertial>
+          <pose>-0.00011 -0.000988 0.000214 0 -0 0</pose>
+          <mass>1.45459</mass>
+          <inertia>
+            <ixx>0.00154582</ixx>
+            <ixy>-2.97e-06</ixy>
+            <ixz>-4.07e-09</ixz>
+            <iyy>0.00119159</iyy>
+            <iyz>9.16e-09</iyz>
+            <izz>0.00227048</izz>
+          </inertia>
+        </inertial>
+        <visual name='SagittalLeftHip_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/SagittalLeftHip.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='SagittalLeftHip_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/SagittalLeftHip.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftLeg::SagittalLeftHip' type='revolute'>
+        <parent>TEO::TEO_leftLeg::AxialLeftHip_link</parent>
+        <child>TEO::TEO_leftLeg::SagittalLeftHip_link</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.22</lower>
+            <upper>0.25</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftLeg::FrontalLeftHip_link'>
+        <pose relative_to='TEO::TEO_leftLeg::__model__'>0 0 -0.092 0 -0 0</pose>
+        <inertial>
+          <pose>-0.010862 -6e-06 -0.161205 0 -0 0</pose>
+          <mass>1.89152</mass>
+          <inertia>
+            <ixx>0.0150777</ixx>
+            <ixy>0</ixy>
+            <ixz>-0.000442074</ixz>
+            <iyy>0.015112</iyy>
+            <iyz>0</iyz>
+            <izz>0.00747346</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalLeftHip_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalLeftHip.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalLeftHip_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalLeftHip.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftLeg::FrontalLeftHip' type='revolute'>
+        <parent>TEO::TEO_leftLeg::SagittalLeftHip_link</parent>
+        <child>TEO::TEO_leftLeg::FrontalLeftHip_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.55</lower>
+            <upper>0.74</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftLeg::FrontalLeftKnee_link'>
+        <pose relative_to='TEO::TEO_leftLeg::__model__'>0 0 -0.422 0 -0 0</pose>
+        <inertial>
+          <pose>-0.006614 -0.000411 -0.146413 0 -0 0</pose>
+          <mass>1.94824</mass>
+          <inertia>
+            <ixx>0.0218617</ixx>
+            <ixy>0</ixy>
+            <ixz>3.16e-06</ixz>
+            <iyy>0.0214111</iyy>
+            <iyz>0</iyz>
+            <izz>0.00384364</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalLeftKnee_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalLeftKnee.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalLeftKnee_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalLeftKnee.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftLeg::FrontalLeftKnee' type='revolute'>
+        <parent>TEO::TEO_leftLeg::FrontalLeftHip_link</parent>
+        <child>TEO::TEO_leftLeg::FrontalLeftKnee_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.07</lower>
+            <upper>1.44</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftLeg::FrontalLeftAnkle_link'>
+        <pose relative_to='TEO::TEO_leftLeg::__model__'>0 -0.0175 -0.722 0 -0 0</pose>
+        <inertial>
+          <pose>0.001999 0.013793 3.5e-05 0 -0 0</pose>
+          <mass>1.50359</mass>
+          <inertia>
+            <ixx>0.00139229</ixx>
+            <ixy>-1.21e-05</ixy>
+            <ixz>1e-11</ixz>
+            <iyy>0.00159005</iyy>
+            <iyz>1e-11</iyz>
+            <izz>0.00241606</izz>
+          </inertia>
+        </inertial>
+        <visual name='FrontalLeftAnkle_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/FrontalLeftAnkle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='FrontalLeftAnkle_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/FrontalLeftAnkle.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftLeg::FrontalLeftAnkle' type='revolute'>
+        <parent>TEO::TEO_leftLeg::FrontalLeftKnee_link</parent>
+        <child>TEO::TEO_leftLeg::FrontalLeftAnkle_link</child>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.4</lower>
+            <upper>0.44</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftLeg::SagittalLeftAnkle_link'>
+        <pose relative_to='TEO::TEO_leftLeg::__model__'>0 -0.0175 -0.722 0 -0 0</pose>
+        <inertial>
+          <pose>0.010136 -0.000799 -0.0669 0 -0 0</pose>
+          <mass>2.1334</mass>
+          <inertia>
+            <ixx>0.00776373</ixx>
+            <ixy>-0.000524258</ixy>
+            <ixz>-0.00142477</ixz>
+            <iyy>0.0145916</iyy>
+            <iyz>0.000173925</iyz>
+            <izz>0.0131643</izz>
+          </inertia>
+        </inertial>
+        <visual name='SagittalLeftAnkle_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/SagittalLeftAnkle.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='SagittalLeftAnkle_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/SagittalLeftAnkle.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftLeg::SagittalLeftAnkle' type='revolute'>
+        <parent>TEO::TEO_leftLeg::FrontalLeftAnkle_link</parent>
+        <child>TEO::TEO_leftLeg::SagittalLeftAnkle_link</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-0.74</lower>
+            <upper>0.35</upper>
+          </limit>
+          <dynamics>
+            <damping>0.001</damping>
+            <friction>0.7</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='TEO::TEO_leftLeg::SagittalLeftFoot_link'>
+        <pose relative_to='TEO::TEO_leftLeg::__model__'>0 -0.0175 -0.722 0 -0 0</pose>
+        <inertial>
+          <pose>0.010136 -0.000799 -0.0669 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.00776373</ixx>
+            <ixy>-0.000524258</ixy>
+            <ixz>-0.00142477</ixz>
+            <iyy>0.0145916</iyy>
+            <iyz>0.000173925</iyz>
+            <izz>0.0131643</izz>
+          </inertia>
+        </inertial>
+        <visual name='SagittalLeftFoot_visual'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/visual/SagittalLeftFoot.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.792157 0.819608 0.933333 1</ambient>
+            <diffuse>0.792157 0.819608 0.933333 1</diffuse>
+            <specular>0.633726 0.655686 0.746667 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='SagittalLeftFoot_collision'>
+          <geometry>
+            <mesh>
+              <uri>model://teo/meshes/collision/SagittalLeftFoot.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>4</max_contacts>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1.8e+07</kp>
+                <kd>100</kd>
+                <max_vel>100</max_vel>
+                <min_depth>0.0001</min_depth>
+              </ode>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='TEO::TEO_leftLeg::SagittalLeftFoot' type='fixed'>
+        <parent>TEO::TEO_leftLeg::SagittalLeftAnkle_link</parent>
+        <child>TEO::TEO_leftLeg::SagittalLeftFoot_link</child>
+        <pose>0 0 -0.113 -3.14159 -0 0</pose>
+        <sensor name='leftLeg_ft' type='force_torque'>
+          <always_on>1</always_on>
+          <update_rate>200</update_rate>
+          <force_torque>
+            <frame>sensor</frame>
+            <measure_direction>child_to_parent</measure_direction>
+          </force_torque>
+          <plugin name='leftLeg_ft_plugin' filename='libgazebo_yarp_forcetorque.so'>
+            <yarpConfigurationString>(yarpDeviceName forceTorque_leftLeg) (disableImplicitNetworkWrapper)</yarpConfigurationString>
+          </plugin>
+        </sensor>
+      </joint>
+      <plugin name='controlboard_leftLeg' filename='libgazebo_yarp_controlboard.so'>
+        <yarpConfigurationFile>model://teo/conf/gazebo_teo_leftLeg.ini</yarpConfigurationFile>
+      </plugin>
+      <plugin name='robotinterface_teo_yarp' filename='libgazebo_yarp_robotinterface.so'>
+        <yarpRobotInterfaceConfigurationFile>model://teo/conf/teo_nws_yarp.xml</yarpRobotInterfaceConfigurationFile>
+      </plugin>
+      <plugin name='robotinterface_teo_ros2' filename='libgazebo_yarp_robotinterface.so'>
+        <yarpRobotInterfaceConfigurationFile>model://teo/conf/teo_nws_ros2.xml</yarpRobotInterfaceConfigurationFile>
+      </plugin>
+      <plugin name='externalwrench' filename='libgazebo_yarp_externalwrench.so'/>
+      <joint name='fixed_to_ground' type='fixed'>
+        <parent>world</parent>
+        <child>TEO::RootWaist_links</child>
+      </joint>
+      <pose>0 0 0.05 0 -0 0</pose>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='person_standing'>
+      <link name='link'>
+        <inertial>
+          <pose>0 -0.1 0.95 0 -0 0</pose>
+          <mass>80</mass>
+          <inertia>
+            <ixx>24.88</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>25.73</iyy>
+            <iyz>0</iyz>
+            <izz>2.48</izz>
+          </inertia>
+        </inertial>
+        <collision name='bottom'>
+          <pose>0 -0.1 0.01 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.5 0.35 0.02</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='person'>
+          <pose>0 0 0.02 0.04 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <pose>0 0 0.02 0.04 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>1.5463 0.078513 0 0 -0 0</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>849 5000000</sim_time>
+      <real_time>940 557783068</real_time>
+      <wall_time>1745079592 650600318</wall_time>
+      <iterations>849005</iterations>
+      <model name='TEO_fixed'>
+        <pose>4e-06 7e-06 0.049998 9e-06 -4e-06 0</pose>
+        <scale>1 1 1</scale>
+        <link name='TEO::RootWaist_links'>
+          <pose>-0 0 0.894998 9e-06 -4e-06 0</pose>
+          <velocity>-7e-06 1.4e-05 -4e-06 0.000223 -0.000254 -3.7e-05</velocity>
+          <acceleration>-0.029459 0.009777 -0.004201 0.333079 -0.941799 -0.06612</acceleration>
+          <wrench>-0.073648 0.024443 -0.010502 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_head::AxialNeck_link'>
+          <pose>-1.9e-05 -1.5e-05 1.5232 3.1e-05 -2.4e-05 0.000377</pose>
+          <velocity>0.000197 -0.000198 0 0.000536 0.003372 -0.000388</velocity>
+          <acceleration>-0.226579 -0.019576 0.002648 2.73035 -1.53325 2.68745</acceleration>
+          <wrench>-0.226579 -0.019576 0.002648 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_head::FrontalNeck_link'>
+          <pose>-2.1e-05 -1.6e-05 1.5557 3.1e-05 -1.3e-05 0.000377</pose>
+          <velocity>0.000121 -0.000209 -0 0.000531 0.002141 -0.000379</velocity>
+          <acceleration>0.043237 0.02175 0.013402 2.79678 -0.566622 2.73956</acceleration>
+          <wrench>0.086473 0.043501 0.026804 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftArm::AxialLeftShoulder_link'>
+          <pose>-2.8e-05 0.346913 1.0642 1.7e-05 -3.8e-05 0.000109</pose>
+          <velocity>6.2e-05 0.000283 0.000103 0.000218 8.5e-05 -0.000579</velocity>
+          <acceleration>0.038418 -0.197234 -0.07934 0.42079 0.100539 0.043628</acceleration>
+          <wrench>0.038418 -0.197234 -0.07934 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftArm::AxialLeftWrist_link'>
+          <pose>-2.1e-05 0.346917 0.862204 1.9e-05 -3.6e-05 8.1e-05</pose>
+          <velocity>8.3e-05 0.000389 0.000102 -0.000242 -0.000341 -0.000191</velocity>
+          <acceleration>0.030643 -0.013938 -0.081637 0.033038 0.135376 0.053524</acceleration>
+          <wrench>0.019351 -0.008802 -0.051553 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftArm::FrontalLeftElbow_link'>
+          <pose>-2.8e-05 0.346913 1.0642 2e-05 -3.7e-05 0.000169</pose>
+          <velocity>5.9e-05 0.000298 0.000103 -0.000592 -0.000452 0.004678</velocity>
+          <acceleration>0.017938 -0.155028 -0.080601 -0.320238 0.169827 0.479679</acceleration>
+          <wrench>0.017938 -0.155028 -0.080601 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftArm::FrontalLeftShoulder_link'>
+          <pose>-3.4e-05 0.262909 1.3932 2.6e-05 -4.2e-05 8.5e-05</pose>
+          <velocity>0.000208 -0.000138 7.4e-05 0.00083 3.2e-05 -8e-05</velocity>
+          <acceleration>0.080376 -0.038207 -0.052863 0.878864 0.123479 -0.251681</acceleration>
+          <wrench>0.160752 -0.076413 -0.105725 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftArm::FrontalLeftWrist_link'>
+          <pose>-2.1e-05 0.346917 0.862204 2e-05 5.3e-05 8.2e-05</pose>
+          <velocity>8.2e-05 0.000395 0.000104 -0.00046 -0.000165 -0.000463</velocity>
+          <acceleration>0.042335 -0.033043 -0.080178 -0.228653 -0.137258 0.001364</acceleration>
+          <wrench>0.030481 -0.023791 -0.057728 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftArm::LeftSensorPlate_link'>
+          <pose>-2.6e-05 0.346919 0.759194 1.9e-05 5.3e-05 8.2e-05</pose>
+          <velocity>9.9e-05 0.000345 0.000104 -0.000409 -0.00016 -0.000372</velocity>
+          <acceleration>0.041539 -0.033613 -0.078932 -0.158626 -0.13763 0.020196</acceleration>
+          <wrench>4.2e-05 -3.4e-05 -7.9e-05 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftArm::SagittalLeftShoulder_link'>
+          <pose>-4.1e-05 0.346909 1.3932 2.3e-05 -3.6e-05 0.000105</pose>
+          <velocity>0.00022 -0.000122 0.000123 -0.000275 7e-05 0.000849</velocity>
+          <acceleration>0.087292 -0.011488 -0.072567 0.463605 0.114897 0.191442</acceleration>
+          <wrench>0.087292 -0.011488 -0.072567 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftLeg::AxialLeftHip_link'>
+          <pose>-0 0.146 0.894999 1e-06 -4e-06 -2e-06</pose>
+          <velocity>-1e-05 1.8e-05 4.7e-05 0.000356 -0.000119 -0.001913</velocity>
+          <acceleration>0.069027 0.080756 0.095937 0.549575 -1.03225 -2.18445</acceleration>
+          <wrench>0.058635 0.068598 0.081494 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftLeg::FrontalLeftAnkle_link'>
+          <pose>3e-06 0.1285 0.172995 -0 -6e-06 -7e-06</pose>
+          <velocity>6.6e-05 -8.3e-05 0.000113 -0.000287 -0.000525 -0.000631</velocity>
+          <acceleration>-0.048112 -0.094839 0.222098 -0.461623 -0.135614 -0.731274</acceleration>
+          <wrench>-0.07234 -0.142599 0.333945 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftLeg::FrontalLeftHip_link'>
+          <pose>-0 0.146 0.802996 -1e-06 -6e-06 -6e-06</pose>
+          <velocity>4e-06 5.9e-05 9e-05 -0.000171 0.000123 -0.000877</velocity>
+          <acceleration>0.008242 0.090056 0.19021 -0.233852 0.575883 -1.02479</acceleration>
+          <wrench>0.015589 0.170343 0.359786 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftLeg::FrontalLeftKnee_link'>
+          <pose>2e-06 0.146 0.472996 -1e-06 -6e-06 -6e-06</pose>
+          <velocity>-3.6e-05 -7e-06 0.000101 -0.000242 -0.000396 -0.000788</velocity>
+          <acceleration>-0.062798 -0.024979 0.203297 -0.367284 -0.15661 -0.921418</acceleration>
+          <wrench>-0.122346 -0.048665 0.396072 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftLeg::SagittalLeftAnkle_link'>
+          <pose>3e-06 0.1285 0.172995 0 -4e-06 -8e-06</pose>
+          <velocity>6.6e-05 -8.2e-05 0.000123 0.000913 -0.000403 -0.00031</velocity>
+          <acceleration>-0.028259 0.091548 0.250128 2.82868 -0.402066 -0.352776</acceleration>
+          <wrench>-0.060288 0.195308 0.533623 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftLeg::SagittalLeftFoot_link'>
+          <pose>3e-06 0.1285 0.172994 0 -4e-06 -9e-06</pose>
+          <velocity>6.7e-05 -8.4e-05 0.000127 0.000917 -0.000381 -0.000256</velocity>
+          <acceleration>-0.027135 0.090789 0.258818 2.84617 -0.409668 -0.288526</acceleration>
+          <wrench>-0.027135 0.090789 0.258818 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_leftLeg::SagittalLeftHip_link'>
+          <pose>0 0.146 0.802997 -0 -4e-06 -4e-06</pose>
+          <velocity>-0 6.6e-05 7.5e-05 0.000255 2e-05 -0.001368</velocity>
+          <acceleration>0.093643 0.125314 0.152867 0.43574 -1.00758 -1.57162</acceleration>
+          <wrench>0.136212 0.18228 0.222359 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightArm::AxialRightShoulder_link'>
+          <pose>2.7e-05 -0.346919 1.06418 3.1e-05 -3.6e-05 0.000133</pose>
+          <velocity>8.3e-05 -7.8e-05 -8.2e-05 3e-05 6.4e-05 -0.00033</velocity>
+          <acceleration>0.203677 -0.041542 0.18203 0.015058 0.473397 -0.175656</acceleration>
+          <wrench>0.203677 -0.041542 0.18203 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightArm::AxialRightWrist_link'>
+          <pose>3.4e-05 -0.346913 0.862184 3.1e-05 -3.6e-05 0.000211</pose>
+          <velocity>0.000173 -6.7e-05 -8.1e-05 -3.9e-05 -7.7e-05 0.000142</velocity>
+          <acceleration>0.277105 -0.024252 0.18573 0.018219 -0.29343 0.15342</acceleration>
+          <wrench>0.174989 -0.015315 0.117287 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightArm::FrontalRightElbow_link'>
+          <pose>2.7e-05 -0.346919 1.06418 3.1e-05 -3.6e-05 0.000183</pose>
+          <velocity>8.8e-05 -7.8e-05 -8.2e-05 -8e-05 8.8e-05 0.004231</velocity>
+          <acceleration>0.171726 -0.0377 0.184066 -0.053709 -0.17091 0.573107</acceleration>
+          <wrench>0.171726 -0.0377 0.184066 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightArm::FrontalRightShoulder_link'>
+          <pose>7e-06 -0.262931 1.39319 3e-05 -3.8e-05 8.5e-05</pose>
+          <velocity>-8e-06 -0.000147 -7.4e-05 0.000234 0.000405 -3.8e-05</velocity>
+          <acceleration>-0.113365 -0.034244 0.133567 -0.298277 1.04924 -0.227229</acceleration>
+          <wrench>-0.226729 -0.068487 0.267135 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightArm::FrontalRightWrist_link'>
+          <pose>3.4e-05 -0.346913 0.862184 3.1e-05 4.6e-05 0.000212</pose>
+          <velocity>0.000175 -6.6e-05 -8.2e-05 -6.4e-05 2.5e-05 -6.6e-05</velocity>
+          <acceleration>0.250846 -0.02282 0.183411 -0.004054 0.343184 -0.044466</acceleration>
+          <wrench>0.180609 -0.01643 0.132056 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightArm::RightSensorPlate_link'>
+          <pose>2.9e-05 -0.34691 0.759174 3.1e-05 4.6e-05 0.000212</pose>
+          <velocity>0.000171 -7.3e-05 -8.3e-05 -6.3e-05 -3.9e-05 -2e-06</velocity>
+          <acceleration>0.250171 -0.0231 0.181595 -0.004337 0.125352 0.002035</acceleration>
+          <wrench>0.00025 -2.3e-05 0.000182 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightArm::SagittalRightShoulder_link'>
+          <pose>1.4e-05 -0.346931 1.39318 3.4e-05 -3.6e-05 0.000101</pose>
+          <velocity>-1.7e-05 -0.000145 -9.2e-05 0.000127 0.000285 0.000992</velocity>
+          <acceleration>-0.144449 -0.034404 0.162368 -0.048724 1.08734 -0.041213</acceleration>
+          <wrench>-0.144449 -0.034404 0.162368 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightLeg::AxialRightHip_link'>
+          <pose>0 -0.145999 0.895 3e-06 -6e-06 5e-06</pose>
+          <velocity>-2.4e-05 0.000183 -1e-05 -4e-05 -0.000182 -5.5e-05</velocity>
+          <acceleration>0.032577 0.321107 -0.019326 -0.10547 -1.53758 -0.117247</acceleration>
+          <wrench>0.027673 0.272765 -0.016416 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightLeg::FrontalRightAnkle_link'>
+          <pose>1.3e-05 -0.128498 0.172999 -6e-06 -2.2e-05 6e-06</pose>
+          <velocity>-0.00019 -0.000299 -2.6e-05 -0.002065 -0.002425 8.4e-05</velocity>
+          <acceleration>-0.231489 -0.423858 0.007277 -0.432823 -0.564153 -3.03664</acceleration>
+          <wrench>-0.348065 -0.637309 0.010942 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightLeg::FrontalRightHip_link'>
+          <pose>1e-06 -0.145999 0.802999 2e-06 -2e-05 5e-06</pose>
+          <velocity>-1.9e-05 0.000199 -1.1e-05 -0.000839 0.000232 -3.3e-05</velocity>
+          <acceleration>-0.031304 0.142907 -0.020552 -1.32762 0.344392 -0.081837</acceleration>
+          <wrench>-0.059212 0.270311 -0.038875 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightLeg::FrontalRightKnee_link'>
+          <pose>7e-06 -0.145998 0.472999 2e-06 -2e-05 6e-06</pose>
+          <velocity>-0.000107 -4e-05 -1.2e-05 -0.000905 0.000269 7e-06</velocity>
+          <acceleration>-0.17818 -0.224777 -0.024694 -1.44967 0.338765 -0.015039</acceleration>
+          <wrench>-0.347137 -0.43792 -0.048109 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightLeg::SagittalRightAnkle_link'>
+          <pose>1.3e-05 -0.128498 0.172999 -7e-06 -2.3e-05 6e-06</pose>
+          <velocity>-0.000187 -0.000309 -4e-06 -0.00148 -0.002359 9.3e-05</velocity>
+          <acceleration>-0.061383 -0.641998 0.014407 0.139947 -0.651984 -3.01793</acceleration>
+          <wrench>-0.130955 -1.36964 0.030735 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightLeg::SagittalRightFoot_link'>
+          <pose>1.3e-05 -0.128498 0.172999 -7e-06 -2.3e-05 6e-06</pose>
+          <velocity>-0.000187 -0.000309 -3e-06 -0.00145 -0.002353 8.5e-05</velocity>
+          <acceleration>-0.062267 -0.639484 0.014569 0.197192 -0.654885 -3.03356</acceleration>
+          <wrench>-0.062267 -0.639484 0.014569 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_rightLeg::SagittalRightHip_link'>
+          <pose>1e-06 -0.145999 0.802999 3e-06 -1.8e-05 5e-06</pose>
+          <velocity>-1.4e-05 0.000176 -1e-05 -0.000617 -0.000652 -5.6e-05</velocity>
+          <acceleration>0.019481 0.313775 -0.024667 -0.939751 1.46787 -0.117408</acceleration>
+          <wrench>0.028337 0.456413 -0.035881 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_trunk::AxialTrunk_link'>
+          <pose>-2e-06 -2e-06 1.08819 3.7e-05 -2.9e-05 8e-05</pose>
+          <velocity>-8e-05 -5.2e-05 -2e-06 0.000254 -0.000853 -0.000498</velocity>
+          <acceleration>0.014257 -0.11868 0.002355 2.53149 -0.627325 2.6854</acceleration>
+          <wrench>0.014257 -0.11868 0.002355 0 -0 0</wrench>
+        </link>
+        <link name='TEO::TEO_trunk::FrontalTrunk_link'>
+          <pose>-1e-06 -1e-06 1.0882 3e-05 -4e-05 8e-05</pose>
+          <velocity>-7.7e-05 -5.1e-05 -0 0.000313 0.00058 -0.000385</velocity>
+          <acceleration>-0.009879 -0.074819 0.009222 -0.32769 -0.085287 -0.352131</acceleration>
+          <wrench>-0.140639 -1.06509 0.131276 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='person_standing'>
+        <pose>1.53974 0.078385 -1e-06 -1e-06 1e-06 -1.60206</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>1.53974 0.078385 -1e-06 -1e-06 1e-06 -1.60206</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>1.11735 -1.69803 -1.28985 1.68589 1.20259 -0.050734</acceleration>
+          <wrench>89.388 -135.843 -103.188 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>3.65261 -3.17934 5.55735 0 0.974938 2.78006</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>

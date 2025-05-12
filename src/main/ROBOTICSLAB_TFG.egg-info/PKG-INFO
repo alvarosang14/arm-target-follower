@@ -1,0 +1,5 @@
+Metadata-Version: 2.1
+Name: ROBOTICSLAB_TFG
+Version: 0.0.5
+Summary: Uc3m TFG - Python CLI tool
+Requires-Dist: begins==0.9

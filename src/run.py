@@ -12,36 +12,37 @@ CopyPolicy: Released under the terms of the GNU GPL v2.0.
 """
 
 import sys
-
 import begin
 import yarp
-from src.main.cameraDetection import RGBDetection
+import logging
+from cameraDetection import RGBDetection
 from headController import FollowMeHeadExecution
 
 
 @begin.start(auto_convert=True)
 @begin.logging
 def main(remote_port: 'Remote port running the AravisGigE grabber' = '/rgbdDetection/state:o'):
-
     yarp.Network.init()
 
     if not yarp.Network.checkNetwork():
-        yarp.yError("found no yarp network (try running \"yarpserver &\"")
+        yarp.yError("found no yarp network (try running \"yarpserver &\")")
         return
+
+    logging.debug("Hola bebe")
+    print("dkjkwkjbhwqk")
 
     rf = yarp.ResourceFinder()
     rf.setDefaultContext("followMeHeadExecution")
-    rf.setDefaultConfigFile("followMeHeadExecution.ini")
+    rf.setDefaultConfigFile("head.ini")
     rf.configure(sys.argv)
 
     mod = FollowMeHeadExecution()
-    mod.configure(rf)
+
+
+    if not mod.configure(rf):
+        return
 
     RGBDetection(remote_port, mod)
 
-    if rf.check("help"):
-        return mod.runModule(rf)
 
-    yarp.yInfo(f'Run "{sys.argv[0]} --help" for options')
-    yarp.yInfo(f"{sys.argv[0]} checking for yarp network...")
 

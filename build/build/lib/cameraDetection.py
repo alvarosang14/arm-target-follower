@@ -5,6 +5,7 @@ class RGBDetection:
         self.remote_port = remote_port
         self.local_port = yarp.Port()
         self.head_module = head_module
+        self.head_module.isFollowing = True
 
         # Inicializa YARP
         yarp.Network.init()

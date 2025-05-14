@@ -16,7 +16,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/alvaro/my_project/cmake/templates/setup.py.in"
   "/home/alvaro/my_project/share/CMakeLists.txt"
   "/home/alvaro/my_project/src/CMakeLists.txt"
-  "/home/alvaro/my_project/src/main/CMakeLists.txt"
   "/usr/local/lib/cmake/YARP/YARPConfig.cmake"
   "/usr/local/lib/cmake/YARP/YARPConfigVersion.cmake"
   "/usr/local/lib/cmake/YARP_conf/YARP_confConfig.cmake"
@@ -94,9 +93,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "share/roboticslab-tfg/plugins/roboticslab-tfg.ini"
   "CMakeFiles/roboticslab-tfg_for_install.ini"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "setup.py"
-  "src/main/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "share/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 

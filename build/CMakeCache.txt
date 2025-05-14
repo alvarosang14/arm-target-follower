@@ -472,7 +472,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -520,7 +520,7 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding PkgConfig
 FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.29.1()]
 //Details about finding Python3
-FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/home/alvaro/miniconda3/bin/python3.12][cfound components: Interpreter ][v3.12.4()]
+FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/usr/bin/python3.8][cfound components: Interpreter ][v3.8.10()]
 //ADVANCED property for variable: PKG_CONFIG_ARGN
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
@@ -581,10 +581,10 @@ _Python3_Compiler_REASON_FAILURE:INTERNAL=
 //Development reason failure
 _Python3_Development_REASON_FAILURE:INTERNAL=
 //Path to a program.
-_Python3_EXECUTABLE:INTERNAL=/home/alvaro/miniconda3/bin/python3.12
+_Python3_EXECUTABLE:INTERNAL=/usr/bin/python3.8
 //Python3 Properties
-_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;12;4;64;32;<none>;cpython-312-x86_64-linux-gnu;abi3;/home/alvaro/miniconda3/lib/python3.12;/home/alvaro/miniconda3/lib/python3.12;/home/alvaro/miniconda3/lib/python3.12/site-packages;/home/alvaro/miniconda3/lib/python3.12/site-packages
-_Python3_INTERPRETER_SIGNATURE:INTERNAL=e869bbd356e6a5236f46ff626f443380
+_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;8;10;64;32;<none>;cpython-38-x86_64-linux-gnu;abi3;/usr/lib/python3.8;/usr/lib/python3.8;/usr/lib/python3/dist-packages;/usr/lib/python3/dist-packages
+_Python3_INTERPRETER_SIGNATURE:INTERNAL=180e97fb1279d3b900d9246ae8984c88
 //NumPy reason failure
 _Python3_NumPy_REASON_FAILURE:INTERNAL=
 __pkg_config_checked_ARAVIS:INTERNAL=1

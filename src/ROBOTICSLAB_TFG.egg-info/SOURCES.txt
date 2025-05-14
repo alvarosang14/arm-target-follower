@@ -1,0 +1,10 @@
+setup.py
+/home/alvaro/my_project/src/cameraDetection.py
+/home/alvaro/my_project/src/headController.py
+/home/alvaro/my_project/src/run.py
+/home/alvaro/my_project/src/ROBOTICSLAB_TFG.egg-info/PKG-INFO
+/home/alvaro/my_project/src/ROBOTICSLAB_TFG.egg-info/SOURCES.txt
+/home/alvaro/my_project/src/ROBOTICSLAB_TFG.egg-info/dependency_links.txt
+/home/alvaro/my_project/src/ROBOTICSLAB_TFG.egg-info/entry_points.txt
+/home/alvaro/my_project/src/ROBOTICSLAB_TFG.egg-info/requires.txt
+/home/alvaro/my_project/src/ROBOTICSLAB_TFG.egg-info/top_level.txt

@@ -18,7 +18,19 @@
         </depends>
     </module>
 
-    <!-- connection is performed automatically -->
+    <!-- Expect instance that opens /grabber from visionFakeSensors.xml or visionSensors.xml -->
+    <module>
+        <name>rgbDetection</name>
+        <parameters>--detector HaarDetector --xmlCascade haarcascade_person.xml</parameters>
+        <node>localhost</node>
+        <depends>
+            <modulename>yarpdev</modulename>
+        </depends>
+    </module>
+
+    <!-- ============================================================================================== -->
+
+    <!-- RgbdDetection: RGB-->
     <module>
         <name>yarpview</name>
         <parameters>--name /rgbDetection/yarpview/img:i --out /click</parameters>
@@ -41,7 +53,7 @@
         <node>localhost</node>
     </module>
 
-    <!-- VISION -->
+    <!-- RgbdDetection: D, Mono -->
     <module>
         <name>yarpview</name>
         <parameters>--name /yarpview/teoSim/depthImageMono:i --title "Depth mono"</parameters>
@@ -54,6 +66,7 @@
         <protocol>udp+recv.portmonitor+type.dll+file.depthimage_to_mono</protocol>
     </connection>
 
+    <!-- RgbdDetection: D, Green -->
     <module>
         <name>yarpview</name>
         <parameters>--name /yarpview/teoSim/depthImageRGB:i --title "Depth RGB"</parameters>
@@ -66,13 +79,13 @@
         <protocol>udp+recv.portmonitor+type.dll+file.depthimage_to_rgb</protocol>
     </connection>
 
+    <!-- Teo camera -->
     <module>
         <name>yarpview</name>
         <parameters>--name /yarpview/teoSim/rgbImage:o</parameters>
         <node>localhost</node>
     </module>
 
-    <!-- Connection -->
     <connection>
         <from>/teoSim/camera/rgbImage:o</from>
         <to>/yarpview/teoSim/rgbImage:o</to>

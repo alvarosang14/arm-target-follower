@@ -14,6 +14,8 @@ CopyPolicy: Released under the terms of the GNU GPL v2.0.
 import sys
 import begin
 import yarp
+import signal
+import time
 import logging
 from cameraDetection import RGBDetection
 from headController import FollowMeHeadExecution
@@ -28,9 +30,6 @@ def main(remote_port: 'Remote port running the AravisGigE grabber' = '/rgbdDetec
         yarp.yError("found no yarp network (try running \"yarpserver &\")")
         return
 
-    logging.debug("Hola bebe")
-    print("dkjkwkjbhwqk")
-
     rf = yarp.ResourceFinder()
     rf.setDefaultContext("followMeHeadExecution")
     rf.setDefaultConfigFile("head.ini")
@@ -38,11 +37,20 @@ def main(remote_port: 'Remote port running the AravisGigE grabber' = '/rgbdDetec
 
     mod = FollowMeHeadExecution()
 
-
     if not mod.configure(rf):
         return
 
-    RGBDetection(remote_port, mod)
+    detection = RGBDetection(remote_port, mod)
 
+    should_stop = False
 
+    def signal_handler(signum, frame):
+        global should_stop
+        should_stop = True
 
+    signal.signal(signal.SIGINT, signal_handler)
+
+    while not should_stop:
+        time.sleep(0.1)
+
+    yarp.Network.fini()

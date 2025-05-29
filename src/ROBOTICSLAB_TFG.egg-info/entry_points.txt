@@ -1,3 +1,0 @@
-[gui_scripts]
-tfg-gui = run:main.start
-

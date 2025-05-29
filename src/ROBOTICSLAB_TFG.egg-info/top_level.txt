@@ -1,3 +1,0 @@
-cameraDetection
-headController
-run

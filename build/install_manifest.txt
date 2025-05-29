@@ -1,4 +1,0 @@
-/usr/local/share/yarp/config/path.d/roboticslab-tfg.ini
-/usr/local/share/roboticslab-tfg/plugins/roboticslab-tfg.ini
-/usr/local/share/roboticslab-tfg/applications/pruebas.xml
-/usr/local/share/roboticslab-tfg/contexts/followMeHeadExecution/head.ini

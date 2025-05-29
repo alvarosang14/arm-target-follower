@@ -1,6 +1,7 @@
 <application>
     <name>Pruebas</name>
 
+    <!-- ================================ Lanzamiento para Aruco =============================== -->
     <!-- Aravis -->
     <module>
         <name>yarpdev</name>
@@ -8,7 +9,53 @@
         <node>localhost</node>
     </module>
 
-    <!-- Expect instance that opens /grabber from visionFakeSensors.xml or visionSensors.xml -->
+    <module>
+        <name>rgbDetection</name>
+        <parameters>--detector ArucoDetector </parameters>
+        <node>localhost</node>
+        <depends>
+            <modulename>yarpdev</modulename>
+        </depends>
+    </module>
+
+    <module>
+        <name>yarpview</name>
+        <parameters>--name /rgbDetection/yarpview/img:i --out /click</parameters>
+        <node>localhost</node>
+    </module>
+
+    <connection>
+        <from>/rgbDetection/img:o</from>
+        <to>/rgbDetection/yarpview/img:i</to>
+    </connection>
+    <connection>
+        <from>/click</from>
+        <to>/rgbDetection/crop:i</to>
+    </connection>
+
+    <module>
+        <name>gnome-terminal</name>
+        <parameters>-e "yarp read ... /rgbDetection/state:o"</parameters>
+        <node>localhost</node>
+    </module>
+
+    <!-- ============================ Modulos cabeza ============================================-->
+    <module>
+        <name>BasicCartesianControl</name>
+        <parameters>--name /teoSim/head/CartesianControl --kinematics teo-fixedTrunk-head-rgb.ini --ikPos st --local /BasicCartesianControl/teoSim/head --remote /teoSim/head</parameters>
+        <node>localhost</node>
+        <deployer>yarpdev</deployer>
+    </module>
+
+    <module>
+        <name>BasicCartesianControl</name>
+        <parameters>--name /teoSim/rightArm/CartesianControl --kinematics teo-fixedTrunk-rightArm-fetch.ini --ikPos st --local /BasicCartesianControl/teoSim/rightArm --remote /teoSim/rightArm</parameters>
+        <node>localhost</node>
+        <deployer>yarpdev</deployer>
+    </module>
+
+    <!-- ========================== Profundidad ==============================================-->
+    <!-- rgbDetection -->
     <module>
         <name>rgbdDetection</name>
         <parameters>--detector HaarDetector --xmlCascade haarcascade_person.xml</parameters>
@@ -18,22 +65,9 @@
         </depends>
     </module>
 
-    <!-- Expect instance that opens /grabber from visionFakeSensors.xml or visionSensors.xml -->
-    <module>
-        <name>rgbDetection</name>
-        <parameters>--detector HaarDetector --xmlCascade haarcascade_person.xml</parameters>
-        <node>localhost</node>
-        <depends>
-            <modulename>yarpdev</modulename>
-        </depends>
-    </module>
-
-    <!-- ============================================================================================== -->
-
-    <!-- RgbdDetection: RGB-->
     <module>
         <name>yarpview</name>
-        <parameters>--name /rgbDetection/yarpview/img:i --out /click</parameters>
+        <parameters>--name /rgbdDetection/yarpview/img:i --out /click</parameters>
         <node>localhost</node>
     </module>
 
@@ -53,6 +87,7 @@
         <node>localhost</node>
     </module>
 
+    <!-- ==================================== Teo ==========================================-->
     <!-- RgbdDetection: D, Mono -->
     <module>
         <name>yarpview</name>
@@ -90,20 +125,6 @@
         <from>/teoSim/camera/rgbImage:o</from>
         <to>/yarpview/teoSim/rgbImage:o</to>
     </connection>
-
-    <module>
-        <name>BasicCartesianControl</name>
-        <parameters>--name /teoSim/head/CartesianControl --kinematics teo-fixedTrunk-head-rgb.ini --ikPos st --local /BasicCartesianControl/teoSim/head --remote /teoSim/head</parameters>
-        <node>localhost</node>
-        <deployer>yarpdev</deployer>
-    </module>
-
-    <module>
-        <name>BasicCartesianControl</name>
-        <parameters>--name /teoSim/rightArm/CartesianControl --kinematics teo-fixedTrunk-rightArm-fetch.ini --ikPos st --local /BasicCartesianControl/teoSim/rightArm --remote /teoSim/rightArm</parameters>
-        <node>localhost</node>
-        <deployer>yarpdev</deployer>
-    </module>
 
 </application>
 

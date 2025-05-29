@@ -19,6 +19,7 @@ import time
 import logging
 from cameraDetection import RGBDetection
 from headController import FollowMeHeadExecution
+from arucoDetection import ArucoDetection
 
 
 @begin.start(auto_convert=True)
@@ -41,6 +42,7 @@ def main(remote_port: 'Remote port running the AravisGigE grabber' = '/rgbdDetec
         return
 
     detection = RGBDetection(remote_port, mod)
+    ArucoDetection('/rgbDetection/state:o')
 
     should_stop = False
 

@@ -8,7 +8,7 @@ setup(
     name='ROBOTICSLAB_TFG',
     version='0.0.5',
     description='Uc3m TFG - Python CLI tool',
-    py_modules=['run', 'cameraDetection', 'headController'],
+    py_modules=['run', 'cameraDetection', 'headController', 'arucoDetection'],
     package_dir={'': normpath('@CMAKE_SOURCE_DIR@/src/')},
     install_requires=['begins==0.9'],
     entry_points={

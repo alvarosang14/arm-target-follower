@@ -29,7 +29,8 @@ class RGBDetection(yarp.BottleCallback):
             z = bottle.get(2).asFloat64()
             print(f"Detectado centro a coordenadas: x={x:.2f}, y={y:.2f}, z={z:.2f}")
 
-            self.head_module.updateTarget(x, y, z)
+            self.head_module.moveHead(x, y)
+            self.head_module.moveArm(x, y, z)
 
     def stop(self):
         """Detiene el sistema y cierra puertos"""

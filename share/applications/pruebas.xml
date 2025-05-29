@@ -91,5 +91,19 @@
         <to>/yarpview/teoSim/rgbImage:o</to>
     </connection>
 
+    <module>
+        <name>BasicCartesianControl</name>
+        <parameters>--name /teoSim/head/CartesianControl --kinematics teo-fixedTrunk-head-rgb.ini --ikPos st --local /BasicCartesianControl/teoSim/head --remote /teoSim/head</parameters>
+        <node>localhost</node>
+        <deployer>yarpdev</deployer>
+    </module>
+
+    <module>
+        <name>BasicCartesianControl</name>
+        <parameters>--name /teoSim/rightArm/CartesianControl --kinematics teo-fixedTrunk-rightArm-fetch.ini --ikPos st --local /BasicCartesianControl/teoSim/rightArm --remote /teoSim/rightArm</parameters>
+        <node>localhost</node>
+        <deployer>yarpdev</deployer>
+    </module>
+
 </application>
 

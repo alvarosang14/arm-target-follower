@@ -45,12 +45,14 @@ def main(remote_port: 'Remote port running the AravisGigE grabber' = '/rgbdDetec
     should_stop = False
 
     def signal_handler(signum, frame):
-        global should_stop
+        nonlocal should_stop
         should_stop = True
 
     signal.signal(signal.SIGINT, signal_handler)
 
     while not should_stop:
         time.sleep(0.1)
+
+    detection.stop()
 
     yarp.Network.fini()

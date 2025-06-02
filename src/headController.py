@@ -1,6 +1,7 @@
 import yarp
 import math
 from time import sleep
+from threading import Thread
 import roboticslab_kinematics_dynamics as kd
 import PyKDL as kdl
 
@@ -16,7 +17,7 @@ APPROXIMATION_DEADBAND = 0.05 # [m]
 ROTATION_DEADBAND = 5 # [deg]
 
 class FollowMeHeadExecution(yarp.RFModule):
-    def __init__(self):
+    def __init__(self, cameraDetection, aruco=None):
         super().__init__()
 
         # ------------- Atributos -------------
@@ -34,7 +35,21 @@ class FollowMeHeadExecution(yarp.RFModule):
         self.connection_attempts = 5  # Añadido
         self.connection_delay = 0.5  # Añadido
 
+        # -------------- Clases ------------------------
+        self.cameraDetection = cameraDetection
+        self.aruco = aruco
+
+        # ------------- Hilo --------------------
+        self.should_stop = False
+        self.thread = Thread(target=self._thread_function, daemon=True)
+
         self.rf = yarp.ResourceFinder()  # Añadido para configuración
+
+    def stop(self):
+        self.should_stop = True
+        self.thread.join()
+        self.cameraDetection.stop()
+        self.aruco.stop()
 
     def configure(self, rf):
         self.rf = rf
@@ -88,6 +103,7 @@ class FollowMeHeadExecution(yarp.RFModule):
             setattr(self, name, interface)
 
         self.axes = self.iPositionControl.getAxes()
+        print("Configure", self.axes)
         modes = yarp.IVector(self.axes, yarp.VOCAB_CM_POSITION)
         if not self.iControlMode.setControlModes(modes):
             print("Error al configurar modos de control")
@@ -120,7 +136,19 @@ class FollowMeHeadExecution(yarp.RFModule):
             print('unable to preset POSE')
             return False
 
-        return self._verify_connection()
+        if not self._verify_connection():
+            return
+
+        self.thread.start()
+        return True
+
+    def _thread_function(self):
+        while not self.should_stop:
+            self.moveHead(self.cameraDetection.x, self.cameraDetection.y)
+
+            if self.aruco.move_arm:
+                self.moveArm(self.cameraDetection.x, self.cameraDetection.y, self.cameraDetection.z)
+            sleep(0.05)
 
     def _verify_connection(self):
         # ====== Suele fallar a la priema ======
@@ -134,10 +162,6 @@ class FollowMeHeadExecution(yarp.RFModule):
         return False
 
     def moveHead(self, x, y):
-        if not self.isFollowing:
-            print("Modo following desactivado")
-            return False
-
         targets = yarp.DVector(self.axes)
         targets[0] = math.copysign(RELATIVE_INCREMENT, -x) if abs(x) > DETECTION_DEADBAND else 0.0
         targets[1] = math.copysign(RELATIVE_INCREMENT, y) if abs(y) > DETECTION_DEADBAND else 0.0
@@ -145,10 +169,6 @@ class FollowMeHeadExecution(yarp.RFModule):
         return self.iPositionControl.relativeMove(targets)
 
     def moveArm(self, x, y, z):
-        if not self.isFollowing:
-            print("Modo following desactivado")
-            return False
-
         v = yarp.DVector()
         ret, state, ts = self.iCartesianControlHead.stat(v)
 

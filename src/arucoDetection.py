@@ -10,6 +10,8 @@ class ArucoDetection(yarp.BottleCallback):
         # Configurar puertos
         self.setup_camera_port()
 
+        self.move_arm = False
+
     def setup_camera_port(self):
         """Configura el puerto YARP para recibir coordenadas"""
         self.local_port.open("/client/rgb/state:i")
@@ -20,6 +22,14 @@ class ArucoDetection(yarp.BottleCallback):
         self.local_port.useCallback(self)
 
     def onRead(self, bottle, reader):
+
+        for i in range(bottle.size()):
+            text = bottle.get(i).asDict().find("text").asInt32()
+            print("text", text)
+
+            if text == 20:
+                print("=======================================================")
+                self.move_arm = True
         print(f"Detectado aruco")
 
     def stop(self):

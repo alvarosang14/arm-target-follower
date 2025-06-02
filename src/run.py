@@ -36,13 +36,14 @@ def main(remote_port: 'Remote port running the AravisGigE grabber' = '/rgbdDetec
     rf.setDefaultConfigFile("head.ini")
     rf.configure(sys.argv)
 
-    mod = FollowMeHeadExecution()
+    detection = RGBDetection(remote_port)
+    aruco = ArucoDetection('/rgbDetection/state:o')
+
+    mod = FollowMeHeadExecution(detection, aruco)
 
     if not mod.configure(rf):
+        print("Error configuring")
         return
-
-    detection = RGBDetection(remote_port, mod)
-    ArucoDetection('/rgbDetection/state:o')
 
     should_stop = False
 
@@ -55,6 +56,6 @@ def main(remote_port: 'Remote port running the AravisGigE grabber' = '/rgbdDetec
     while not should_stop:
         time.sleep(0.1)
 
-    detection.stop()
+    mod.stop()
 
     yarp.Network.fini()

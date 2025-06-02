@@ -10,6 +10,12 @@
     </module>
 
     <module>
+        <name>yarpdev</name>
+        <parameters>--device opencv_grabber</parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
         <name>rgbDetection</name>
         <parameters>--detector ArucoDetector </parameters>
         <node>localhost</node>

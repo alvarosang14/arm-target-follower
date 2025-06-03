@@ -172,7 +172,8 @@ class FollowMeHeadExecution(yarp.RFModule):
         v = yarp.DVector()
         ret, state, ts = self.iCartesianControlHead.stat(v)
 
-        H_0_rgb = kdl.Frame.Identity()
+        # H_0_rgb = kdl.Frame.Identity()
+        H_0_rgb = kdl.Frame()
         H_0_rgb.p = kdl.Vector(v[0], v[1], v[2])
         axis_0_rgb = kdl.Vector(v[3], v[4], v[5])
         angle_0_rgb = axis_0_rgb.Normalize()
@@ -182,33 +183,39 @@ class FollowMeHeadExecution(yarp.RFModule):
 
         H_0_obj = H_0_rgb * H_rgb_obj
 
-        # modo lineal
-        #H_tcp_obj = self.H_tcp_0 * H_0_obj
-        #p = H_tcp_obj.p
-        #distance = p.Normalize()
-
         twist = kdl.diff(self.H_0_tcp, H_0_obj)
-        p = twist.vel
-        distance = p.Normalize()
-        rot = twist.rot
-        angle = rot.Normalize()
+        linear = twist.vel
+        angular = twist.rot
 
-        #H_tcp_step = kdl.Frame.Identity()
+        linear_distance = linear.Normalize()
+        angular_distance = angular.Normalize()
 
-        if distance >= APPROXIMATION_DEADBAND or angle >= (ROTATION_DEADBAND * math.pi / 180):
-            p *= TRANS_INCREMENT
-            rot *= ROT_INCREMENT * math.pi / 180
+        if linear_distance < APPROXIMATION_DEADBAND and angular_distance < (ROTATION_DEADBAND * math.pi / 180):
+            return False
 
-            #H_tcp_step.p = p
-            #H_tcp_step.M = kdl.Rotation.Rot(rot, rot.Norm())
+        linear *= TRANS_INCREMENT
+        angular *= ROT_INCREMENT * math.pi / 180
 
-        self.H_0_tcp.p += p
+        # Aplicar la traslación
+        self.H_0_tcp.p += linear
+
+        # Aplicar la rotación incremental
+        rotation_increment = kdl.Rotation.Rot(angular, angular.Norm())
+        self.H_0_tcp.M = rotation_increment * self.H_0_tcp.M  # Composición
+
+        # Convertir a vector para YARP
         axis = self.H_0_tcp.M.GetRot()
-        xd = yarp.DVector([self.H_0_tcp.p.x(), self.H_0_tcp.p.y(), self.H_0_tcp.p.z(), axis.x(), axis.y(), axis.z()])
+        angle = axis.Normalize()
+        axis *= angle
 
-        #self.H_0_tcp *= H_tcp_step
-        #axis = self.H_0_tcp.M.GetRot()
-        #xd = yarp.DVector([self.H_0_tcp.p.x(), self.H_0_tcp.p.y(), self.H_0_tcp.p.z(), axis.x(), axis.y(), axis.z()])
+        xd = yarp.DVector([
+            self.H_0_tcp.p.x(),
+            self.H_0_tcp.p.y(),
+            self.H_0_tcp.p.z(),
+            axis.x(),
+            axis.y(),
+            axis.z()
+        ])
 
         self.iCartesianControlArm.pose(xd)
 

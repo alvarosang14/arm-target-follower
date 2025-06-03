@@ -172,12 +172,11 @@ class FollowMeHeadExecution(yarp.RFModule):
         v = yarp.DVector()
         ret, state, ts = self.iCartesianControlHead.stat(v)
 
-        # H_0_rgb = kdl.Frame.Identity()
-        H_0_rgb = kdl.Frame()
+        H_0_rgb = kdl.Frame.Identity()
         H_0_rgb.p = kdl.Vector(v[0], v[1], v[2])
         axis_0_rgb = kdl.Vector(v[3], v[4], v[5])
         angle_0_rgb = axis_0_rgb.Normalize()
-        H_0_rgb.M = kdl.Rotation.Rot2(axis_0_rgb, angle_0_rgb) * kdl.Rotation.RotZ(math.pi * 0.5)
+        H_0_rgb.M = kdl.Rotation.Rot(axis_0_rgb, angle_0_rgb) * kdl.Rotation.RotZ(math.pi * 0.5)
 
         H_rgb_obj = kdl.Frame(kdl.Vector(x, y, z))
 
@@ -193,15 +192,13 @@ class FollowMeHeadExecution(yarp.RFModule):
         if linear_distance < APPROXIMATION_DEADBAND and angular_distance < (ROTATION_DEADBAND * math.pi / 180):
             return False
 
-        linear *= TRANS_INCREMENT
-        angular *= ROT_INCREMENT * math.pi / 180
-
-        # Aplicar la traslación
-        self.H_0_tcp.p += linear
-
-        # Aplicar la rotación incremental
-        rotation_increment = kdl.Rotation.Rot(angular, angular.Norm())
-        self.H_0_tcp.M = rotation_increment * self.H_0_tcp.M  # Composición
+        # Escalado proporcional
+        linear_step = min(linear_distance, TRANS_INCREMENT)
+        angular_step = min(angular_distance, ROT_INCREMENT * math.pi / 180)
+        self.H_0_tcp.p += linear * linear_step
+        if angular_distance > 1e-3:
+            rotation_increment = kdl.Rotation.Rot(angular, angular_step)
+            self.H_0_tcp.M = rotation_increment * self.H_0_tcp.M
 
         # Convertir a vector para YARP
         axis = self.H_0_tcp.M.GetRot()
@@ -218,7 +215,6 @@ class FollowMeHeadExecution(yarp.RFModule):
         ])
 
         self.iCartesianControlArm.pose(xd)
-
         return True
 
     def _CurrentPosition(self):

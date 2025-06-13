@@ -11,31 +11,27 @@ class RGBDetection(yarp.BottleCallback):
         self.y = 0
         self.z = 0
 
-        # Configurar puertos
+        # Set up ports
         self.setup_camera_port()
 
     def setup_camera_port(self):
-        """Configura el puerto YARP para recibir coordenadas"""
+        """Sets up the YARP port to receive coordinates"""
         self.local_port.open("/client/rgbd/state:i")
 
         if not yarp.Network.connect(self.remote_port, "/client/rgbd/state:i"):
-            print(f"No se pudo conectar a {self.remote_port}")
+            print(f"Could not connect to {self.remote_port}")
 
         self.local_port.useCallback(self)
 
     def onRead(self, bottle, reader):
-        """Lee coordenadas X, Y, Z en bucle"""
+        """Continuously reads X, Y, Z coordinates"""
         if bottle.size() == 3:
             self.x = bottle.get(0).asFloat64()
             self.y = bottle.get(1).asFloat64()
             self.z = bottle.get(2).asFloat64()
-            #print(f"Detectado centro a coordenadas: x={self.x:.2f}, y={self.y:.2f}, z={self.z:.2f}")
-
-            #self.head_module.moveHead(x, y)
-            #self.head_module.moveArm(x, y, z)
 
     def stop(self):
-        """Detiene el sistema y cierra puertos"""
+        """Stops the system and closes ports"""
         if self.local_port.isOpen():
             self.local_port.interrupt()
             self.local_port.close()

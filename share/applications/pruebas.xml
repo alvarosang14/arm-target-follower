@@ -1,7 +1,7 @@
 <application>
     <name>Pruebas</name>
 
-    <!-- ================================ Lanzamiento para Aruco =============================== -->
+    <!-- ================================ Launch for Aruco =============================== -->
     <!-- Aravis -->
     <module>
         <name>yarpdev</name>
@@ -45,7 +45,7 @@
         <node>localhost</node>
     </module>
 
-    <!-- ============================ Modulos cabeza ============================================-->
+    <!-- ============================ Head Modules ============================================-->
     <module>
         <name>BasicCartesianControl</name>
         <parameters>--name /teoSim/head/CartesianControl --kinematics teo-fixedTrunk-head-rgb.ini --ikPos st --local /BasicCartesianControl/teoSim/head --remote /teoSim/head</parameters>
@@ -60,7 +60,7 @@
         <deployer>yarpdev</deployer>
     </module>
 
-    <!-- ========================== Profundidad ==============================================-->
+    <!-- ========================== Depth ==============================================-->
     <!-- rgbDetection -->
     <module>
         <name>rgbdDetection</name>
@@ -133,4 +133,3 @@
     </connection>
 
 </application>
-

@@ -7,33 +7,32 @@ class ArucoDetection(yarp.BottleCallback):
         self.remote_port = remote_port
         self.local_port = yarp.BufferedPortBottle()
 
-        # Configurar puertos
+        # Set up ports
         self.setup_camera_port()
 
         self.move_arm = False
 
     def setup_camera_port(self):
-        """Configura el puerto YARP para recibir coordenadas"""
+        """Sets up the YARP port to receive coordinates"""
         self.local_port.open("/client/rgb/state:i")
 
         if not yarp.Network.connect(self.remote_port, "/client/rgb/state:i"):
-            print(f"No se pudo conectar a {self.remote_port}")
+            print(f"Could not connect to {self.remote_port}")
 
         self.local_port.useCallback(self)
 
     def onRead(self, bottle, reader):
-
         for i in range(bottle.size()):
             text = bottle.get(i).asDict().find("text").asInt32()
             print("text", text)
 
             if text == 20:
-                print("=======================================================")
+                print("20 detected")
                 self.move_arm = True
-        print(f"Detectado aruco")
+        print("Aruco detected")
 
     def stop(self):
-        """Detiene el sistema y cierra puertos"""
+        """Stops the system and closes ports"""
         if self.local_port.isOpen():
             self.local_port.interrupt()
             self.local_port.close()

@@ -16,7 +16,6 @@ import begin
 import yarp
 import signal
 import time
-import logging
 from cameraDetection import RGBDetection
 from headController import FollowMeHeadExecution
 from arucoDetection import ArucoDetection

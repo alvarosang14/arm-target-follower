@@ -12,7 +12,7 @@ DEFAULT_REF_ACCELERATION = 30.0
 DETECTION_DEADBAND = 0.03  # [m]
 RELATIVE_INCREMENT = 2.0  # [deg]
 TRANS_INCREMENT = 0.001 # [m]
-ROT_INCREMENT = 0.1 # [deg
+ROT_INCREMENT = 0.1 # [deg]
 APPROXIMATION_DEADBAND = 0.05 # [m]
 ROTATION_DEADBAND = 5 # [deg]
 
@@ -20,7 +20,7 @@ class FollowMeHeadExecution(yarp.RFModule):
     def __init__(self, cameraDetection, aruco=None):
         super().__init__()
 
-        # ------------- Atributos -------------
+        # ------------- Attributes -------------
         self.headDevice = yarp.PolyDriver()
         self.cartesianHeadDevice = yarp.PolyDriver()
         self.cartesianArmDevice = yarp.PolyDriver()
@@ -32,18 +32,18 @@ class FollowMeHeadExecution(yarp.RFModule):
         self.currentPos = [0.0, 0.0]
         self.axes = 0
         self.isFollowing = False
-        self.connection_attempts = 5  # Añadido
-        self.connection_delay = 0.5  # Añadido
+        self.connection_attempts = 5  # Added
+        self.connection_delay = 0.5  # Added
 
-        # -------------- Clases ------------------------
+        # -------------- Classes ------------------------
         self.cameraDetection = cameraDetection
         self.aruco = aruco
 
-        # ------------- Hilo --------------------
+        # ------------- Thread --------------------
         self.should_stop = False
         self.thread = Thread(target=self._thread_function, daemon=True)
 
-        self.rf = yarp.ResourceFinder()  # Añadido para configuración
+        self.rf = yarp.ResourceFinder()  # Added for configuration
 
     def stop(self):
         self.should_stop = True
@@ -54,7 +54,7 @@ class FollowMeHeadExecution(yarp.RFModule):
     def configure(self, rf):
         self.rf = rf
 
-        # ------------------- Sacamo valores -------------------
+        # ------------------- Get values -------------------
         robot = self.rf.check("robot", yarp.Value("/teoSim")).asString()
         local_prefix = self.rf.check("local", yarp.Value("/followMeHeadExecution")).asString()
 
@@ -95,10 +95,10 @@ class FollowMeHeadExecution(yarp.RFModule):
             'iCartesianControlArm': kd.viewICartesianControl(self.cartesianArmDevice)
         }
 
-        # ------------------ Comprobacion de interfaces -------------------------
+        # ------------------ Interface check -------------------------
         for name, interface in required_interfaces.items():
             if not interface:
-                print(f"Error: Falta interfaz {name}")
+                print(f"Error: Missing interface {name}")
                 return False
             setattr(self, name, interface)
 
@@ -106,7 +106,7 @@ class FollowMeHeadExecution(yarp.RFModule):
         print("Configure", self.axes)
         modes = yarp.IVector(self.axes, yarp.VOCAB_CM_POSITION)
         if not self.iControlMode.setControlModes(modes):
-            print("Error al configurar modos de control")
+            print("Error setting control modes")
             return False
 
         ref_speed = self.rf.check("ref_speed", yarp.Value(30.0)).asFloat64()
@@ -151,12 +151,12 @@ class FollowMeHeadExecution(yarp.RFModule):
             sleep(0.05)
 
     def _verify_connection(self):
-        # ====== Suele fallar a la priema ======
+        # ====== Often fails the first time ======
         encs = yarp.DVector(self.axes)
         for _ in range(3):
             if self.iEncoders.getEncoders(encs):
                 self.currentPos = [encs[0], encs[1]]
-                print(f"Conexión verificada. Posición inicial: {self.currentPos}")
+                print(f"Connection verified. Initial position: {self.currentPos}")
                 return True
             sleep(0.3)
         return False
@@ -192,7 +192,7 @@ class FollowMeHeadExecution(yarp.RFModule):
         if linear_distance < APPROXIMATION_DEADBAND and angular_distance < (ROTATION_DEADBAND * math.pi / 180):
             return False
 
-        # Escalado proporcional
+        # Proportional scaling
         linear_step = min(linear_distance, TRANS_INCREMENT)
         angular_step = min(angular_distance, ROT_INCREMENT * math.pi / 180)
         self.H_0_tcp.p += linear * linear_step
@@ -200,7 +200,7 @@ class FollowMeHeadExecution(yarp.RFModule):
             rotation_increment = kdl.Rotation.Rot(angular, angular_step)
             self.H_0_tcp.M = rotation_increment * self.H_0_tcp.M
 
-        # Convertir a vector para YARP
+        # Convert to YARP vector
         axis = self.H_0_tcp.M.GetRot()
         angle = axis.Normalize()
         axis *= angle
@@ -215,14 +215,4 @@ class FollowMeHeadExecution(yarp.RFModule):
         ])
 
         self.iCartesianControlArm.pose(xd)
-        return True
-
-    def _CurrentPosition(self):
-        encs = yarp.DVector(self.axes)
-        if not self.iEncoders.getEncoders(encs):
-            print("Error al leer encoders")
-            return False
-
-        self.currentPos = [encs[0], encs[1]]
-        print(f"Posición actualizada: pan={self.currentPos[0]:.2f}°, tilt={self.currentPos[1]:.2f}°")
         return True

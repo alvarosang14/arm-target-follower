@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#package_data={'GrabberControls2Gui': ['templates/*.ui']},
 
 from setuptools import setup
 from os.path import normpath

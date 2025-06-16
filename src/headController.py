@@ -1,3 +1,14 @@
+"""
+followMeHeadExecution
+---------------------
+
+Vision-based object detection and robot control system for the humanoid robot TEO
+
+Author: Alvaro Santos Garcia
+Copyright: Universidad Carlos III de Madrid (C) 2025;
+CopyPolicy: Released under the terms of the GNU LGPL v2.1
+"""
+
 import yarp
 import math
 from time import sleep

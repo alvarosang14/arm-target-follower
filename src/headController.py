@@ -129,16 +129,6 @@ class FollowMeHeadExecution(yarp.RFModule):
         self.iPositionControl.setRefSpeeds(speeds)
         self.iPositionControl.setRefAccelerations(accels)
 
-        v = yarp.DVector()
-        ret, state, ts = self.iCartesianControlArm.stat(v)
-
-        H_0_tcp = kdl.Frame.Identity()
-        H_0_tcp.p = kdl.Vector(v[0], v[1], v[2])
-        axis_0_tcp = kdl.Vector(v[3], v[4], v[5])
-        angle_0_tcp = axis_0_tcp.Normalize()
-        H_0_tcp.M = kdl.Rotation.Rot2(axis_0_tcp, angle_0_tcp)
-        self.H_0_tcp = H_0_tcp
-
         if not self.iCartesianControlArm.setParameter(kd.VOCAB_CC_CONFIG_FRAME, yarp.encode('cpfb')):
             print('unable to set TCP frame')
             return False
@@ -181,11 +171,19 @@ class FollowMeHeadExecution(yarp.RFModule):
 
     def moveArm(self, x, y, z):
         v = yarp.DVector()
-        ret, state, ts = self.iCartesianControlHead.stat(v)
+        ret, state, ts = self.iCartesianControlArm.stat(v)
 
+        H_current = kdl.Frame.Identity()
+        H_current.p = kdl.Vector(v[0], v[1], v[2])
+        axis_current = kdl.Vector(v[3], v[4], v[5])
+        angle_current = axis_current.Normalize()
+        H_current.M = kdl.Rotation.Rot(axis_current, angle_current)
+
+        v_head = yarp.DVector()
+        _, _, _ = self.iCartesianControlHead.stat(v_head)
         H_0_rgb = kdl.Frame.Identity()
-        H_0_rgb.p = kdl.Vector(v[0], v[1], v[2])
-        axis_0_rgb = kdl.Vector(v[3], v[4], v[5])
+        H_0_rgb.p = kdl.Vector(v_head[0], v_head[1], v_head[2])
+        axis_0_rgb = kdl.Vector(v_head[3], v_head[4], v_head[5])
         angle_0_rgb = axis_0_rgb.Normalize()
         H_0_rgb.M = kdl.Rotation.Rot(axis_0_rgb, angle_0_rgb) * kdl.Rotation.RotZ(math.pi * 0.5)
 
@@ -193,7 +191,7 @@ class FollowMeHeadExecution(yarp.RFModule):
 
         H_0_obj = H_0_rgb * H_rgb_obj
 
-        twist = kdl.diff(self.H_0_tcp, H_0_obj)
+        twist = kdl.diff(H_current, H_0_obj)
         linear = twist.vel
         angular = twist.rot
 
@@ -206,20 +204,31 @@ class FollowMeHeadExecution(yarp.RFModule):
         # Proportional scaling
         linear_step = min(linear_distance, TRANS_INCREMENT)
         angular_step = min(angular_distance, ROT_INCREMENT * math.pi / 180)
-        self.H_0_tcp.p += linear * linear_step
-        if angular_distance > 1e-3:
-            rotation_increment = kdl.Rotation.Rot(angular, angular_step)
-            self.H_0_tcp.M = rotation_increment * self.H_0_tcp.M
 
-        # Convert to YARP vector
-        axis = self.H_0_tcp.M.GetRot()
+        H_next = kdl.Frame(H_current.M, H_current.p)
+        H_next.p += linear * linear_step
+        if angular_distance > 1e-3:
+            H_next.M = kdl.Rotation.Rot(angular, angular_step) * H_current.M
+
+        axis = H_next.M.GetRot()
         angle = axis.Normalize()
         axis *= angle
 
+        def clip(val, limit=0.544):
+            return max(min(val, limit), -limit)
+
+        clipped_pos = kdl.Vector(
+            clip(H_next.p.x()),
+            clip(H_next.p.y()),
+            clip(H_next.p.z())
+        )
+
+        H_next.p = clipped_pos
+
         xd = yarp.DVector([
-            self.H_0_tcp.p.x(),
-            self.H_0_tcp.p.y(),
-            self.H_0_tcp.p.z(),
+            H_next.p.x(),
+            H_next.p.y(),
+            H_next.p.z(),
             axis.x(),
             axis.y(),
             axis.z()

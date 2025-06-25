@@ -35,12 +35,14 @@ class ArucoDetection(yarp.BottleCallback):
     def onRead(self, bottle, reader):
         for i in range(bottle.size()):
             text = bottle.get(i).asDict().find("text").asInt32()
-            print("text", text)
 
             if text == 20:
                 print("20 detected")
                 self.move_arm = True
-        print("Aruco detected")
+            """
+            else:
+                self.move_arm = False
+            """
 
     def stop(self):
         """Stops the system and closes ports"""

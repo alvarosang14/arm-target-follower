@@ -73,7 +73,7 @@
 
     <module>
         <name>yarpview</name>
-        <parameters>--name /rgbdDetection/yarpview/img:i --out /click</parameters>
+        <parameters>--name /rgbdDetection/yarpview/img:i</parameters>
         <node>localhost</node>
     </module>
 

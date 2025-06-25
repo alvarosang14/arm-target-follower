@@ -24,8 +24,8 @@ DETECTION_DEADBAND = 0.03  # [m]
 RELATIVE_INCREMENT = 2.0  # [deg]
 TRANS_INCREMENT = 0.001 # [m]
 ROT_INCREMENT = 0.1 # [deg]
-APPROXIMATION_DEADBAND = 0.05 # [m]
-ROTATION_DEADBAND = 5 # [deg]
+APPROXIMATION_DEADBAND = 0.1 # [m]
+ROTATION_DEADBAND = 10 # [deg]
 
 class FollowMeHeadExecution(yarp.RFModule):
     def __init__(self, cameraDetection, aruco=None):
@@ -50,6 +50,9 @@ class FollowMeHeadExecution(yarp.RFModule):
         self.cameraDetection = cameraDetection
         self.aruco = aruco
 
+        self.old_target = [0.0, 0.0]
+        self.anterior = yarp.DVector()
+        self.centrado = False
         # ------------- Thread --------------------
         self.should_stop = False
         self.thread = Thread(target=self._thread_function, daemon=True)
@@ -147,7 +150,7 @@ class FollowMeHeadExecution(yarp.RFModule):
         while not self.should_stop:
             self.moveHead(self.cameraDetection.x, self.cameraDetection.y)
 
-            if self.aruco.move_arm:
+            if self.centrado and self.aruco.move_arm:
                 self.moveArm(self.cameraDetection.x, self.cameraDetection.y, self.cameraDetection.z)
             sleep(0.05)
 
@@ -167,6 +170,11 @@ class FollowMeHeadExecution(yarp.RFModule):
         targets[0] = math.copysign(RELATIVE_INCREMENT, -x) if abs(x) > DETECTION_DEADBAND else 0.0
         targets[1] = math.copysign(RELATIVE_INCREMENT, y) if abs(y) > DETECTION_DEADBAND else 0.0
 
+        if self.is_same_pose(self.old_target, targets):
+            self.centrado = True
+            return False
+        else:
+            self.centrado = False
         return self.iPositionControl.relativeMove(targets)
 
     def moveArm(self, x, y, z):
@@ -187,9 +195,18 @@ class FollowMeHeadExecution(yarp.RFModule):
         angle_0_rgb = axis_0_rgb.Normalize()
         H_0_rgb.M = kdl.Rotation.Rot(axis_0_rgb, angle_0_rgb) * kdl.Rotation.RotZ(math.pi * 0.5)
 
-        H_rgb_obj = kdl.Frame(kdl.Vector(x, y, z))
+        H_0_obj_unclipped = H_0_rgb * kdl.Frame(kdl.Vector(x, y, z))
 
-        H_0_obj = H_0_rgb * H_rgb_obj
+        def clip(val, limit=0.544):
+            return max(min(val, limit), -limit)
+
+        clipped_pos = kdl.Vector(
+            clip(H_0_obj_unclipped.p.x()),
+            clip(H_0_obj_unclipped.p.y()),
+            clip(H_0_obj_unclipped.p.z())
+        )
+
+        H_0_obj = kdl.Frame(H_0_obj_unclipped.M, clipped_pos)
 
         twist = kdl.diff(H_current, H_0_obj)
         linear = twist.vel
@@ -199,6 +216,7 @@ class FollowMeHeadExecution(yarp.RFModule):
         angular_distance = angular.Normalize()
 
         if linear_distance < APPROXIMATION_DEADBAND and angular_distance < (ROTATION_DEADBAND * math.pi / 180):
+            print("ya dentro==================\n")
             return False
 
         # Proportional scaling
@@ -214,17 +232,6 @@ class FollowMeHeadExecution(yarp.RFModule):
         angle = axis.Normalize()
         axis *= angle
 
-        def clip(val, limit=0.544):
-            return max(min(val, limit), -limit)
-
-        clipped_pos = kdl.Vector(
-            clip(H_next.p.x()),
-            clip(H_next.p.y()),
-            clip(H_next.p.z())
-        )
-
-        H_next.p = clipped_pos
-
         xd = yarp.DVector([
             H_next.p.x(),
             H_next.p.y(),
@@ -236,3 +243,13 @@ class FollowMeHeadExecution(yarp.RFModule):
 
         self.iCartesianControlArm.pose(xd)
         return True
+
+    @staticmethod
+    def is_same_pose(v1, v2, tolerance=1e-5):
+        if v1 is None or v2 is None or len(v1) != len(v2):
+            return False
+        for i in range(len(v1)):
+            if abs(v1[i] - v2[i]) > tolerance:
+                return False
+        return True
+
